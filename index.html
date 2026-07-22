@@ -179,24 +179,17 @@
 
 <!--===== contact =====-->
 <div id="contact-page" class="d-flex align-items-center flex-column">
-
     <div class="contact-headline">Contact</div>
-
     <div class="contact-container">
-        <form action="https://formsubmit.co/skmdyahya@yahoo.com" class="contact-form" method="POST">
+        <!-- Remove the action and method attributes, add id -->
+        <form id="contactForm" class="contact-form">
             <input type="text" name="name" placeholder="Name" class="contact-input" required>
             <input type="email" name="email" placeholder="Email Address" class="contact-input" required>
             <input type="text" name="_subject" placeholder="Subject" class="contact-input" required>
-            <textarea name="text" id="" cols="0" rows="10" placeholder="Write your message/comment here..." class="contact-input" required></textarea>
+            <textarea name="text" cols="0" rows="10" placeholder="Write your message/comment here..." class="contact-input" required></textarea>
             <button type="submit" class="contact-submit">Submit</button>
-
-
-            <input type="hidden" name="_next" value="https://ludwig.guru/s/i+am+still+working+on+it+%26+your+message+has+been+sent.">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_autoresponse" value="Thanks. Your message has been successfully submitted.">
         </form>
     </div>
-
 </div>
 
 
