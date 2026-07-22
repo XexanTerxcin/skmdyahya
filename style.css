@@ -307,17 +307,18 @@ background-color: #ff6000;
     margin: 0px 0px 0px 50px;
     background-color: #ff6000;
 }
-.skill-ps{
+.skill-dvr{
+    background-color: #a6ff00;
+    width: 90%;
+}
+.skill-wf{
     width: 70%;
 }
-.skill-ai{
+.skill-cc{
     width: 60%;
 }
-.skill-html{
-    width: 80%;
-}
-.skill-css{
-    width: 70%;
+.skill-app{
+    width: 50%;
 }
 .skill-sl{
     background-color: #a6ff00;
