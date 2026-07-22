@@ -26,12 +26,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function handleScroll() {
         const fromTop = window.scrollY;
+        const offset = 100;
 
         menuLinks.forEach(menuLink => {
             const section = document.getElementById(menuLink.getAttribute("href").substring(1));
 
-            if (section && section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
-                makeActive(menuLink);
+            if (section) {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (fromTop + offset >= sectionTop && fromTop + offset < sectionBottom) {
+                    makeActive(menuLink);
+                }
             }
         });
     }
@@ -69,23 +75,6 @@ sr.reveal('.work-img', { interval: 0 });
 sr.reveal('.contact-headline, .contact-container', {});
 sr.reveal('.follow-text, .social-icon', { delay: 0 });
 
-
-/*const sr = ScrollReveal({
-    origin: 'top',
-    distance: '5000px',
-    duration: 0,
-    delay: 0,
-    // reset: true
-});
-
-sr.reveal('.follow-text, .social-icon', { delay: 0 });*/
-
-
-
-
-
-// Add at the end of main.js or in a new script tag
-
 // Contact Form Handler with Google Apps Script
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
@@ -94,15 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get the submit button
             const submitBtn = this.querySelector('.contact-submit');
             const originalText = submitBtn.textContent;
             
-            // Disable button and show loading state
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
             
-            // Collect form data
             const formData = new FormData(this);
             const data = {
                 name: formData.get('name'),
@@ -111,29 +97,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: formData.get('text')
             };
             
-            // REPLACE THIS URL WITH YOUR DEPLOYED WEB APP URL
             const scriptURL = 'https://script.google.com/macros/s/AKfycbwx2RMJRvxPuCV4m4M6sVakws3OlVgIJnEHA67Jqtzw7n8h15BLN8b_uAWemhuJOalZ/exec';
             
-            // Send data to Google Apps Script
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors',  // Important for Google Apps Script
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)
             })
             .then(response => {
-                // Since we use no-cors, we can't read the response
-                // But we know it worked if we get here without error
                 submitBtn.textContent = 'Sent!';
                 submitBtn.style.backgroundColor = '#00a651';
                 submitBtn.disabled = false;
-                
-                // Reset form
                 contactForm.reset();
                 
-                // Reset button after 3 seconds
                 setTimeout(() => {
                     submitBtn.textContent = originalText;
                     submitBtn.style.backgroundColor = '#ff6000';
@@ -141,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error:', error);
-                submitBtn.textContent = '❌ Error! Try Again';
+                submitBtn.textContent = 'Error! Try Again';
                 submitBtn.style.backgroundColor = '#dc3545';
                 submitBtn.disabled = false;
                 
@@ -173,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = headerList.classList.contains('active') ? 'hidden' : '';
     }
     
-    // Close menu
+    // Close menu with animation
     function closeMenu() {
         hamburger.classList.remove('active');
         headerList.classList.remove('active');
@@ -187,25 +166,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // Overlay click to close
     overlay.addEventListener('click', closeMenu);
     
-    // Menu link click - close menu and navigate
+    // Menu link click - closes menu and navigates
     menuLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            closeMenu();
             
             const targetId = this.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
             
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop,
-                    behavior: "smooth",
-                });
-            }
-            
             // Update active state
             menuLinks.forEach(menuLink => menuLink.classList.remove('active'));
             this.classList.add('active');
+            
+            // Close the hamburger menu immediately
+            closeMenu();
+            
+            // Scroll to section with smooth animation
+            if (targetSection) {
+                // Small delay to ensure menu closes before scrolling
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: targetSection.offsetTop,
+                        behavior: "smooth",
+                    });
+                }, 100);
+            }
         });
     });
     
@@ -216,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Close menu on window resize (if it was open and screen becomes larger)
+    // Close menu on window resize
     window.addEventListener('resize', function() {
         if (window.innerWidth > 540 && headerList.classList.contains('active')) {
             closeMenu();

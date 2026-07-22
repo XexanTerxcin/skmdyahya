@@ -1367,7 +1367,7 @@ a {
         display: flex;
     }
     
-    /* Hide menu by default on mobile */
+    /* Hide menu by default on mobile - Glassmorphism effect */
     #header-list {
         position: fixed;
         top: 0;
@@ -1375,16 +1375,22 @@ a {
         width: 70%;
         max-width: 300px;
         height: 100vh;
-        background-color: rgba(33, 33, 33, 0.98);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        /* Glassmorphism effect */
+        background: rgba(33, 33, 33, 0.75) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        /* Border for glass effect */
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
         padding: 80px 30px 30px;
-        transition: right 0.4s ease;
-        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 
+            -10px 0 40px rgba(0, 0, 0, 0.5),
+            inset 0 0 30px rgba(255, 96, 0, 0.05);
         overflow-y: auto;
         display: flex !important;
         align-items: flex-start;
         justify-content: flex-start;
+        z-index: 100;
     }
     
     #header-list.active {
@@ -1395,6 +1401,7 @@ a {
         flex-direction: column;
         width: 100%;
         gap: 5px;
+        padding-top: 10px;
     }
     
     #header-list-menu li {
@@ -1405,25 +1412,49 @@ a {
     
     #header-list-menu li a {
         display: block;
-        padding: 12px 15px;
+        padding: 14px 20px;
         font-size: 18px;
-        border-radius: 8px;
-        transition: background-color 0.3s;
+        border-radius: 12px;
+        transition: all 0.3s ease;
         white-space: normal;
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
     }
     
+    /* Hover effect with glassmorphism */
     #header-list-menu li a:hover {
-        background-color: rgba(255, 96, 0, 0.2);
+        background: rgba(255, 96, 0, 0.15);
+        color: #ffffff !important;
+        transform: translateX(5px);
     }
     
     #header-list-menu li a::after {
         display: none !important;
     }
     
-    /* Active menu item background */
+    /* Active menu item - glass style */
     #header-list-menu li a.active {
-        background-color: rgba(255, 96, 0, 0.3);
+        background: rgba(255, 96, 0, 0.25) !important;
         color: #ff6000 !important;
+        border: 1px solid rgba(255, 96, 0, 0.3);
+        box-shadow: 0 0 20px rgba(255, 96, 0, 0.1);
+        transform: translateX(5px);
+    }
+    
+    /* Add a subtle glow effect on active item */
+    #header-list-menu li a.active::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background: #ff6000;
+        border-radius: 0 4px 4px 0;
+        box-shadow: 0 0 15px rgba(255, 96, 0, 0.5);
     }
     
     /* Brand name bigger on mobile */
@@ -1450,7 +1481,7 @@ a {
         width: 45px;
     }
     
-    /* Overlay when menu is open */
+    /* Glassmorphism Overlay */
     .menu-overlay {
         display: none;
         position: fixed;
@@ -1458,12 +1489,47 @@ a {
         left: 0;
         width: 100%;
         height: 100vh;
-        background-color: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
         z-index: 99;
+        animation: overlayFade 0.3s ease;
     }
     
     .menu-overlay.active {
         display: block;
+    }
+    
+    @keyframes overlayFade {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    
+    /* Smooth slide animation for menu */
+    @keyframes slideIn {
+        from {
+            right: -100%;
+            opacity: 0;
+        }
+        to {
+            right: 0;
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            right: 0;
+            opacity: 1;
+        }
+        to {
+            right: -100%;
+            opacity: 0;
+        }
     }
 }
 
