@@ -1360,6 +1360,113 @@ a {
     }
 }
 
+/* ===== MOBILE MENU (max-width: 540px) ===== */
+@media screen and (max-width: 540px) {
+    /* Show hamburger */
+    .hamburger {
+        display: flex;
+    }
+    
+    /* Hide menu by default on mobile */
+    #header-list {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: rgba(33, 33, 33, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 80px 30px 30px;
+        transition: right 0.4s ease;
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+        display: flex !important;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    
+    #header-list.active {
+        right: 0;
+    }
+    
+    #header-list-menu {
+        flex-direction: column;
+        width: 100%;
+        gap: 5px;
+    }
+    
+    #header-list-menu li {
+        width: 100%;
+        margin: 5px 0 !important;
+        text-align: left;
+    }
+    
+    #header-list-menu li a {
+        display: block;
+        padding: 12px 15px;
+        font-size: 18px;
+        border-radius: 8px;
+        transition: background-color 0.3s;
+        white-space: normal;
+    }
+    
+    #header-list-menu li a:hover {
+        background-color: rgba(255, 96, 0, 0.2);
+    }
+    
+    #header-list-menu li a::after {
+        display: none !important;
+    }
+    
+    /* Active menu item background */
+    #header-list-menu li a.active {
+        background-color: rgba(255, 96, 0, 0.3);
+        color: #ff6000 !important;
+    }
+    
+    /* Brand name bigger on mobile */
+    .brand-name {
+        font-size: 20px;
+        gap: 8px;
+    }
+    
+    .call-me {
+        font-size: 20px;
+    }
+    
+    .yahya {
+        font-size: 22px;
+    }
+    
+    .header {
+        height: 60px;
+        padding: 0 15px;
+    }
+    
+    .logo img {
+        height: 45px;
+        width: 45px;
+    }
+    
+    /* Overlay when menu is open */
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 99;
+    }
+    
+    .menu-overlay.active {
+        display: block;
+    }
+}
+
 /* ===== VERY SMALL PHONES (320px - 480px) ===== */
 @media screen and (max-width: 480px) {
     /* Header */

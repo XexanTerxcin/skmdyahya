@@ -153,3 +153,73 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// ===== HAMBURGER MENU =====
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburger');
+    const headerList = document.getElementById('header-list');
+    const menuLinks = document.querySelectorAll('#header-list-menu a');
+    
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    document.body.appendChild(overlay);
+    
+    // Toggle menu
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        headerList.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = headerList.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    // Close menu
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        headerList.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    // Hamburger click
+    hamburger.addEventListener('click', toggleMenu);
+    
+    // Overlay click to close
+    overlay.addEventListener('click', closeMenu);
+    
+    // Menu link click - close menu and navigate
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeMenu();
+            
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: "smooth",
+                });
+            }
+            
+            // Update active state
+            menuLinks.forEach(menuLink => menuLink.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeMenu();
+        }
+    });
+    
+    // Close menu on window resize (if it was open and screen becomes larger)
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 540 && headerList.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+});
