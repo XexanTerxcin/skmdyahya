@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         menuLinks.forEach(menuLink => {
             const section = document.getElementById(menuLink.getAttribute("href").substring(1));
 
-            if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+            if (section && section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
                 makeActive(menuLink);
             }
         });
@@ -38,6 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     menuLinks.forEach(menuLink => menuLink.addEventListener("click", handleLinkClick));
     window.addEventListener("scroll", handleScroll);
+
+    // Bootstrap navbar toggler support (for future mobile menu implementation)
+    const navToggler = document.querySelector('.navbar-toggler');
+    if (navToggler) {
+        navToggler.addEventListener('click', function() {
+            this.classList.toggle('collapsed');
+        });
+    }
 });
 
 /*===== SCROLL REVEAL ANIMATION =====*/

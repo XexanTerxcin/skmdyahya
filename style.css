@@ -1,11 +1,104 @@
 /*html {
     scroll-behavior: smooth;
   }*/
+
+/* ===== BOOTSTRAP OVERRIDE ===== */
+/* Prevent Bootstrap from resetting your styles */
+
+/* Override Bootstrap's body styles */
 body{
     margin: 0px 0px 0px 0px;
-    background-color: #212121;
+    background-color: #212121 !important;
     width: 100%;
+    font-family: Klavika, sans-serif !important;
 }
+
+/* Override Bootstrap link colors */
+a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+/* Override Bootstrap container padding */
+.container-fluid, .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Prevent Bootstrap from affecting your menu */
+#header-list-menu {
+    display: flex !important;
+    font-family: Klavika !important;
+    font-size: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Override Bootstrap button styles */
+.download-cv, .contact-submit {
+    background-color: #ff6000 !important;
+    color: #ffffff !important;
+    font-size: 24px !important;
+    font-family: Klavika !important;
+    border-radius: 22px !important;
+    border: 0 !important;
+    padding: 5px 20px !important;
+    cursor: pointer !important;
+    transition: 0.5s !important;
+}
+
+.download-cv:hover, .contact-submit:hover {
+    background-color: #ffffff !important;
+    color: #ff6000 !important;
+    box-shadow: 0px 0px 10px rgb(255, 115, 0) !important;
+}
+
+/* Prevent Bootstrap from affecting form inputs */
+.contact-input {
+    text-align: center !important;
+    width: 100% !important;
+    font-family: Klavika !important;
+    font-size: 16px !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    border: 1.5px solid rgb(255, 94, 0) !important;
+    outline: none !important;
+    margin-bottom: 20px !important;
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/* Fix float layouts for home and about sections */
+.home-page-left, .home-page-right {
+    float: left !important;
+    display: block !important;
+}
+
+.my-image-2 {
+    float: left !important;
+    display: block !important;
+}
+
+.about-text {
+    float: left !important;
+    display: block !important;
+}
+
+.skills-left, .skills-right {
+    float: left !important;
+    display: block !important;
+}
+
+/* Menu link hover color transition */
+.menu__link {
+    transition: color 0.3s ease !important;
+}
+
+.menu__link:hover {
+    color: #ffffff !important;
+    transition: color 0.3s ease !important;
+}
+/* ===== END BOOTSTRAP OVERRIDE ===== */
 /*Just Checking*/
 .header{
 z-index: 100;
@@ -75,6 +168,9 @@ background-color: #ff6000;
 }
 
 /*Active menu*/
+.active {
+    color: #ff6000 !important;
+}
 .active::after {
     position: absolute;
     content: '';
@@ -91,68 +187,87 @@ background-color: #ff6000;
   
 
 /*home-page*/
+/* Replace the home-page section with this */
 #home-page{
     background-color: #212121;
     color: #ffffff;
-    height: 678px;
-    width: auto;
+    min-height: 100vh;
+    width: 100%;
     font-family: Klavika;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-top: 80px; /* Account for fixed header */
 }
+
 .home-page-left{
-    height: 100%;
-    width: 60%;
-    float: left;
+    flex: 0 0 58%;
+    padding: 50px 50px 50px 100px;
+    box-sizing: border-box;
 }
+
+.home-page-right{
+    flex: 0 0 42%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
 .home-text{
-    height: 250px;
-    width: 680px;
-    padding: 150px 50px 20px 100px;
+    width: 100%;
+    padding: 0px 0px 20px 0px;
+    box-sizing: border-box;
 }
+
 .hello{
     font-size: 48px;
 }
+
 .name{
     font-size: 72px;
+    white-space: nowrap;
 }
+
+.who{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .who-1{
     font-size: 32px;
-    float: left;
-    margin: 0px 5px 0px 0px;
+    margin: 0;
 }
+
 .who-2{
     font-size: 32px;
     color: #ff6000;
-    margin: 0px;
+    margin: 0;
 }
+
 .bio{
     font-size: 20px;
+    margin-top: 10px;
+}
+
+.a-1{
+    font-size: 28px;
+    padding: 10px 0px;
+    color: #ff6000;
 }
 
 /*social-media-button*/
 .social-media-button{
-    height: 64px;
-    width: auto;
-    padding: 0px 100px;
+    padding: 20px 0px;
+    display: flex;
+    gap: 20px;
 }
-.fb-button{
+
+.fb-button, .tw-button, .in-button, .ln-button{
     height: 24px;
     width: 24px;
-    margin: 0px 20px 0px 0px;
-}
-.tw-button{
-    height: 24px;
-    width: 24px;
-    margin: 0px 20px;
-}
-.in-button{
-    height: 24px;
-    width: 24px;
-    margin: 0px 20px;
-}
-.ln-button{
-    height: 24px;
-    width: 24px;
-    margin: 0px 20px;
 }
 
 /*download-cv*/
@@ -165,41 +280,48 @@ background-color: #ff6000;
     border: 0px;
     padding: 5px 20px;
     cursor: pointer;
-    margin: 0px 100px;
+    margin-top: 10px;
 }
+
 .download-cv:hover{
     background-color: #ffffff;
     color: #ff6000;
     box-shadow: 0px 0px 10px rgb(255, 115, 0);
     transition: 0.5s;
 }
-.home-page-right{
-    height: 100%;
-    width: 40%;
-    float: left;
-}
+
 .my-image-1{
-    margin: 180px 0px 180px 50px;
     height: 300px;
     width: 300px;
+    display: block;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
-/*about-page*/
+/* Fix About Section */
 #about-page{
     background-color: #212121;
     color: #ffffff;
-    height: 678px;
-    width: auto;
+    min-height: 100vh;
+    width: 100%;
     font-family: Klavika;
-    display: inline-block;
+    overflow: hidden;
+    padding: 100px 0px 50px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
 }
+
 .about-headline{
     font-size: 42px;
     color: #ff6000;
     text-align: center;
-    padding: 100px 0px 20px 119px;
+    width: 100%;
+    padding: 0px 0px 30px 0px;
     cursor: default;
 }
+
 .about-headline::after {
     display: inline-flex;
     position: relative;
@@ -211,29 +333,39 @@ background-color: #ff6000;
     left: -109px;
     background-color: #ff6000;
 }
+
+.about-content-wrapper {
+    display: flex;
+    width: 100%;
+    padding: 0 50px;
+    gap: 50px;
+    align-items: flex-start;
+}
+
 .my-image-2{
+    flex: 0 0 200px;
     height: auto;
-    width: 15%;
-    float: left;
-    padding: 1% 100px 20px 150px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
 }
+
 .about-text{
-    height: 100%;
-    width: 44%;
-    float: left;
-    margin: 110px 8% 0px 6%;
+    flex: 1;
+    padding: 0;
+    box-sizing: border-box;
 }
-.a-1{
-    font-size: 28px;
-    padding: 10px 0px;
-    color: #ff6000;
-}
-.a-2{
-    padding: 0px 0px 7px 0px;
-}
+
 .a-3{
     padding: 10px 0px 5px 0px;
     color: #ff6000;
+    font-size: 24px;
+}
+
+.a-4{
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 
@@ -685,6 +817,23 @@ background-color: #ff6000;
 	}
 
 }
+
+/* ===== Additional Bootstrap Responsive Breakpoints ===== */
+@media screen and (max-width: 992px) {
+    /* Bootstrap lg breakpoint - keep your existing styles */
+    /* Add any Bootstrap-related fixes here */
+}
+
+@media screen and (max-width: 768px) {
+    /* Bootstrap md breakpoint - keep your existing styles */
+    /* Add any Bootstrap-related fixes here */
+}
+
+@media screen and (max-width: 576px) {
+    /* Bootstrap sm breakpoint - keep your existing styles */
+    /* Add any Bootstrap-related fixes here */
+}
+/* ===== End Bootstrap Responsive Breakpoints ===== */
 
 /*@media screen and (max-width: 567px) {
 
