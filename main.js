@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Disable button and show loading state
             submitBtn.disabled = true;
-            submitBtn.textContent = '⏳ Sending...';
+            submitBtn.textContent = 'Sending...';
             
             // Collect form data
             const formData = new FormData(this);
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 // Since we use no-cors, we can't read the response
                 // But we know it worked if we get here without error
-                submitBtn.textContent = '✅ Message Sent!';
+                submitBtn.textContent = 'Sent!';
                 submitBtn.style.backgroundColor = '#00a651';
                 submitBtn.disabled = false;
                 
