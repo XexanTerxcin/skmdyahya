@@ -317,183 +317,142 @@
 // PRIVATE FUNCTIONS - BLOG / WORK SECTION
 // ============================================
 
-// Google Apps Script URL for Blog Posts
-const BLOG_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxcc346Oh90GlCQH0pfE2PPPqLbtZHnHbnnFO5lUiweUjcvSVwVh0QBj6_O2ZbWYjtQ/exec';
+const BLOG_API =
+"https://script.google.com/macros/s/AKfycbyFTDz7wv80HeDHPBIB88tx52fUqFXiZrWe69O6tINrH-Hpqex-_O8A_tW_lT8tO6pW/exec";
 
 let currentPage = 1;
-let totalPages = 1;
 
-/**
- * Load blog posts from Google Apps Script
- */
-function loadBlogPosts(page) {
-    page = page || 1;
+function loadBlogPosts(page = 1){
+
     currentPage = page;
-    
-    const container = document.getElementById('blogContainer');
-    const pagination = document.getElementById('paginationControls');
-    
-    // Show loading state
-    container.innerHTML = `
-        <div class="blog-loading">
-            <div class="spinner"></div>
-            <p>Loading posts...</p>
-        </div>
-    `;
-    pagination.innerHTML = '';
-    
-    // Call Google Apps Script via fetch
-    fetch(BLOG_SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-            action: 'getBlogPosts',
-            page: page 
-        })
-    })
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(data) {
-        if (data && data.success) {
-            renderBlogPosts(data);
-            renderPagination(data);
-        } else {
-            container.innerHTML = `
-                <div class="blog-empty">
-                    <i class="bi bi-journal-x"></i>
-                    <h3>No Posts Yet</h3>
-                    <p>${data.message || 'Check back soon for new content!'}</p>
-                </div>
-            `;
-            pagination.innerHTML = '';
+
+    fetch(`${BLOG_API}?page=${page}`)
+    .then(res=>res.json())
+    .then(data=>{
+
+        if(!data.success){
+
+            document.getElementById("blogContainer").innerHTML=
+            "<h3>Unable to load posts.</h3>";
+
+            return;
+
         }
+
+        renderPosts(data.posts);
+
+        renderPagination(
+            data.currentPage,
+            data.totalPages
+        );
+
     })
-    .catch(function(error) {
-        console.error('Error loading blog posts:', error);
-        container.innerHTML = `
-            <div class="blog-error">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-                <h3>Error Loading Posts</h3>
-                <p>${error.message || 'Please try again later.'}</p>
-                <button class="btn-retry" onclick="loadBlogPosts(${currentPage})">
-                    <i class="bi bi-arrow-clockwise"></i> Retry
-                </button>
-            </div>
-        `;
-        pagination.innerHTML = '';
+    .catch(err=>{
+
+        console.error(err);
+
+        document.getElementById("blogContainer").innerHTML=
+        "<h3>Failed to load posts.</h3>";
+
     });
+
 }
 
-/**
- * Render blog posts
- */
-function renderBlogPosts(data) {
-    const container = document.getElementById('blogContainer');
-    const posts = data.posts || [];
-    
-    if (posts.length === 0) {
-        container.innerHTML = `
-            <div class="blog-empty">
-                <i class="bi bi-journal"></i>
-                <h3>No Posts Yet</h3>
-                <p>Check back soon for new content!</p>
-            </div>
-        `;
-        return;
-    }
-    
-    let html = '';
-    posts.forEach(function(post) {
-        // Use placeholder image if no image provided
-        var imageUrl = post.image || 'https://via.placeholder.com/400x200/2a2a2a/ff6000?text=No+Image';
-        
-        html += `
-            <div class="blog-card">
-                <div class="blog-card-image">
-                    <img src="${imageUrl}" alt="${post.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x200/2a2a2a/ff6000?text=Image+Not+Found'">
-                </div>
-                <div class="blog-card-content">
-                    <span class="blog-card-category">${post.category || 'General'}</span>
-                    <h3 class="blog-card-title">${escapeHtml(post.title)}</h3>
-                    <p class="blog-card-description">${escapeHtml(post.description || '')}</p>
-                    <div class="blog-card-meta">
-                        <span class="date"><i class="bi bi-calendar3"></i> ${post.date || ''}</span>
-                        <span class="read-time"><i class="bi bi-clock"></i> ${post.readTime || '3 min'}</span>
-                    </div>
-                </div>
-            </div>
-        `;
+function renderPosts(posts){
+
+    const container=document.getElementById("blogContainer");
+
+    let html="";
+
+    posts.forEach(post=>{
+
+        html+=`
+
+<div class="blog-card">
+
+<img src="${post.image}"
+alt="${post.title}">
+
+<div class="blog-card-content">
+
+<span>${post.category}</span>
+
+<h3>${escapeHTML(post.title)}</h3>
+
+<p>${escapeHTML(post.description)}</p>
+
+<div>
+
+<span>${post.date}</span>
+
+<span>${post.readTime}</span>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
     });
-    
-    container.innerHTML = html;
+
+    container.innerHTML=html;
+
 }
 
-/**
- * Render pagination
- */
-function renderPagination(data) {
-    const pagination = document.getElementById('paginationControls');
-    const totalPages = data.totalPages || 1;
-    const currentPage = data.currentPage || 1;
-    
-    if (totalPages <= 1) {
-        pagination.innerHTML = '';
-        return;
+function renderPagination(current,total){
+
+    const nav=document.getElementById("paginationControls");
+
+    let html="";
+
+    html+=`
+<li class="${current===1?"disabled":""}">
+<a href="#" onclick="return changePage(${current-1})">Previous</a>
+</li>
+`;
+
+    for(let i=1;i<=total;i++){
+
+        html+=`
+<li class="${i===current?"active":""}">
+<a href="#" onclick="return changePage(${i})">${i}</a>
+</li>
+`;
+
     }
-    
-    let html = '';
-    
-    // Previous button
-    html += `
-        <li class="${currentPage <= 1 ? 'disabled' : ''}">
-            <a href="#" onclick="event.preventDefault(); if(${currentPage > 1}) loadBlogPosts(${currentPage - 1});">
-                <i class="bi bi-chevron-left"></i>
-            </a>
-        </li>
-    `;
-    
-    // Page numbers - show pages around current page
-    var startPage = Math.max(1, currentPage - 2);
-    var endPage = Math.min(totalPages, currentPage + 2);
-    
-    // Show first page if not in range
-    if (startPage > 1) {
-        html += `<li><a href="#" onclick="event.preventDefault(); loadBlogPosts(1);">1</a></li>`;
-        if (startPage > 2) {
-            html += `<li class="disabled"><span>...</span></li>`;
-        }
-    }
-    
-    for (var i = startPage; i <= endPage; i++) {
-        html += `
-            <li class="${i === currentPage ? 'active' : ''}">
-                <a href="#" onclick="event.preventDefault(); loadBlogPosts(${i});">${i}</a>
-            </li>
-        `;
-    }
-    
-    // Show last page if not in range
-    if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-            html += `<li class="disabled"><span>...</span></li>`;
-        }
-        html += `<li><a href="#" onclick="event.preventDefault(); loadBlogPosts(${totalPages});">${totalPages}</a></li>`;
-    }
-    
-    // Next button
-    html += `
-        <li class="${currentPage >= totalPages ? 'disabled' : ''}">
-            <a href="#" onclick="event.preventDefault(); if(${currentPage < totalPages}) loadBlogPosts(${currentPage + 1});">
-                <i class="bi bi-chevron-right"></i>
-            </a>
-        </li>
-    `;
-    
-    pagination.innerHTML = html;
+
+    html+=`
+<li class="${current===total?"disabled":""}">
+<a href="#" onclick="return changePage(${current+1})">Next</a>
+</li>
+`;
+
+    nav.innerHTML=html;
+
 }
+
+function changePage(page){
+
+    loadBlogPosts(page);
+
+    return false;
+
+}
+
+function escapeHTML(text){
+
+    const div=document.createElement("div");
+
+    div.textContent=text;
+
+    return div.innerHTML;
+
+}
+
+// Needed because your onclick is in HTML
+window.changePage = changePage;
 
 /**
  * Escape HTML to prevent XSS
@@ -521,12 +480,8 @@ function init() {
     initHamburgerMenu();
     initScrollReveal();
     
-    // Load blog posts after a small delay to ensure DOM is ready
-    setTimeout(function() {
-        if (document.getElementById('blogContainer')) {
-            loadBlogPosts(1);
-        }
-    }, 200);
+    // Load blog posts
+    loadBlogPosts();
 }
     
     // Start everything when DOM is ready
