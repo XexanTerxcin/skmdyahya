@@ -7,26 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #1a1a1a; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; }
+        .admin-container { max-width: 1400px; margin: 0 auto; padding: 20px; }
         
-        body {
-            background: #1a1a1a;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-        }
-        
-        .admin-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Login Screen */
         .login-box {
             max-width: 400px;
             margin: 100px auto;
@@ -38,13 +22,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 60px rgba(255, 96, 0, 0.1);
         }
-        
-        .login-box h2 {
-            color: #ff6000;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
+        .login-box h2 { color: #ff6000; text-align: center; margin-bottom: 30px; }
         .login-box input {
             background: rgba(26, 26, 26, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -54,13 +32,11 @@
             width: 100%;
             transition: all 0.3s;
         }
-        
         .login-box input:focus {
             border-color: #ff6000;
             box-shadow: 0 0 30px rgba(255, 96, 0, 0.1);
             outline: none;
         }
-        
         .login-box button {
             background: #ff6000;
             border: none;
@@ -71,14 +47,8 @@
             width: 100%;
             transition: all 0.3s;
         }
+        .login-box button:hover { background: #e05500; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 96, 0, 0.3); }
         
-        .login-box button:hover {
-            background: #e05500;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 96, 0, 0.3);
-        }
-        
-        /* Dashboard */
         .dashboard-header {
             display: flex;
             justify-content: space-between;
@@ -87,16 +57,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             margin-bottom: 30px;
         }
-        
-        .dashboard-header h1 {
-            color: #ff6000;
-            font-size: 32px;
-        }
-        
-        .dashboard-header h1 i {
-            margin-right: 10px;
-        }
-        
+        .dashboard-header h1 { color: #ff6000; font-size: 32px; }
         .logout-btn {
             background: rgba(220, 53, 69, 0.2);
             border: 1px solid rgba(220, 53, 69, 0.3);
@@ -105,20 +66,14 @@
             border-radius: 10px;
             transition: all 0.3s;
         }
+        .logout-btn:hover { background: #dc3545; color: #fff; }
         
-        .logout-btn:hover {
-            background: #dc3545;
-            color: #fff;
-        }
-        
-        /* Stats Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-        
         .stat-card {
             background: rgba(42, 42, 42, 0.8);
             backdrop-filter: blur(10px);
@@ -129,26 +84,14 @@
             text-align: center;
             transition: all 0.3s;
         }
-        
         .stat-card:hover {
             transform: translateY(-5px);
             border-color: rgba(255, 96, 0, 0.3);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
+        .stat-card .number { font-size: 42px; font-weight: bold; color: #ff6000; }
+        .stat-card .label { color: #888; font-size: 14px; margin-top: 5px; }
         
-        .stat-card .number {
-            font-size: 42px;
-            font-weight: bold;
-            color: #ff6000;
-        }
-        
-        .stat-card .label {
-            color: #888;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-        
-        /* Messages Table */
         .table-container {
             background: rgba(42, 42, 42, 0.8);
             backdrop-filter: blur(10px);
@@ -158,100 +101,26 @@
             overflow: hidden;
             padding: 20px;
         }
+        .table-container h3 { margin-bottom: 20px; color: #ff6000; font-size: 20px; }
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        table thead { background: rgba(255, 96, 0, 0.1); }
+        table th { padding: 15px; text-align: left; font-weight: 600; color: #ff6000; border-bottom: 2px solid rgba(255, 96, 0, 0.2); }
+        table td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        table tr:hover { background: rgba(255, 255, 255, 0.02); }
         
-        .table-container h3 {
-            margin-bottom: 20px;
-            color: #ff6000;
-            font-size: 20px;
-        }
+        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .status-unread { background: rgba(255, 96, 0, 0.2); color: #ff6000; }
+        .status-read { background: rgba(0, 166, 81, 0.2); color: #00a651; }
         
-        .table-wrapper {
-            overflow-x: auto;
-        }
+        .btn-action { padding: 5px 12px; border-radius: 8px; border: none; font-size: 13px; margin: 0 3px; transition: all 0.3s; }
+        .btn-view { background: rgba(0, 123, 255, 0.2); color: #007bff; }
+        .btn-view:hover { background: #007bff; color: #fff; }
+        .btn-read { background: rgba(0, 166, 81, 0.2); color: #00a651; }
+        .btn-read:hover { background: #00a651; color: #fff; }
+        .btn-delete { background: rgba(220, 53, 69, 0.2); color: #dc3545; }
+        .btn-delete:hover { background: #dc3545; color: #fff; }
         
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        table thead {
-            background: rgba(255, 96, 0, 0.1);
-        }
-        
-        table th {
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            color: #ff6000;
-            border-bottom: 2px solid rgba(255, 96, 0, 0.2);
-        }
-        
-        table td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        table tr:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-        
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .status-unread {
-            background: rgba(255, 96, 0, 0.2);
-            color: #ff6000;
-        }
-        
-        .status-read {
-            background: rgba(0, 166, 81, 0.2);
-            color: #00a651;
-        }
-        
-        .btn-action {
-            padding: 5px 12px;
-            border-radius: 8px;
-            border: none;
-            font-size: 13px;
-            margin: 0 3px;
-            transition: all 0.3s;
-        }
-        
-        .btn-view {
-            background: rgba(0, 123, 255, 0.2);
-            color: #007bff;
-        }
-        
-        .btn-view:hover {
-            background: #007bff;
-            color: #fff;
-        }
-        
-        .btn-read {
-            background: rgba(0, 166, 81, 0.2);
-            color: #00a651;
-        }
-        
-        .btn-read:hover {
-            background: #00a651;
-            color: #fff;
-        }
-        
-        .btn-delete {
-            background: rgba(220, 53, 69, 0.2);
-            color: #dc3545;
-        }
-        
-        .btn-delete:hover {
-            background: #dc3545;
-            color: #fff;
-        }
-        
-        /* Modal - Glassmorphism Overlay */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -268,11 +137,7 @@
             padding: 20px;
             animation: fadeIn 0.3s ease;
         }
-        
-        .modal-overlay.active {
-            display: flex;
-        }
-        
+        .modal-overlay.active { display: flex; }
         .modal-content {
             max-width: 700px;
             width: 100%;
@@ -287,7 +152,6 @@
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
             animation: slideUp 0.4s ease;
         }
-        
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -296,13 +160,7 @@
             padding-bottom: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
-        .modal-header h2 {
-            color: #ff6000;
-            font-size: 24px;
-            margin: 0;
-        }
-        
+        .modal-header h2 { color: #ff6000; font-size: 24px; margin: 0; }
         .modal-close {
             background: none;
             border: none;
@@ -313,24 +171,10 @@
             padding: 0;
             line-height: 1;
         }
+        .modal-close:hover { color: #fff; transform: rotate(90deg); }
         
-        .modal-close:hover {
-            color: #fff;
-            transform: rotate(90deg);
-        }
-        
-        .modal-body .field {
-            margin-bottom: 20px;
-        }
-        
-        .modal-body .field-label {
-            color: #888;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-        
+        .modal-body .field { margin-bottom: 20px; }
+        .modal-body .field-label { color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
         .modal-body .field-value {
             font-size: 16px;
             word-wrap: break-word;
@@ -339,7 +183,6 @@
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
         .modal-body .message-content {
             font-size: 15px;
             line-height: 1.8;
@@ -360,97 +203,34 @@
             justify-content: flex-end;
         }
         
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-        }
+        .empty-state { text-align: center; padding: 60px 20px; color: #666; }
+        .empty-state i { font-size: 64px; color: #333; margin-bottom: 20px; }
+        .empty-state h3 { color: #888; margin-bottom: 10px; }
         
-        .empty-state i {
-            font-size: 64px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        
-        .empty-state h3 {
-            color: #888;
-            margin-bottom: 10px;
-        }
-        
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
         @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+        ::-webkit-scrollbar-thumb { background: #ff6000; border-radius: 10px; }
         
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #ff6000;
-            border-radius: 10px;
-        }
-        
-        /* Responsive */
         @media (max-width: 768px) {
-            .modal-content {
-                padding: 25px;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .dashboard-header {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            
-            .dashboard-header h1 {
-                font-size: 24px;
-            }
-            
-            table th,
-            table td {
-                padding: 10px;
-                font-size: 13px;
-            }
-            
-            .btn-action {
-                padding: 3px 8px;
-                font-size: 11px;
-            }
+            .modal-content { padding: 25px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .dashboard-header { flex-direction: column; gap: 15px; text-align: center; }
+            .dashboard-header h1 { font-size: 24px; }
+            table th, table td { padding: 10px; font-size: 13px; }
+            .btn-action { padding: 3px 8px; font-size: 11px; }
         }
-        
         @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .login-box {
-                margin: 50px 20px;
-                padding: 25px;
-            }
+            .stats-grid { grid-template-columns: 1fr; }
+            .login-box { margin: 50px 20px; padding: 25px; }
         }
     </style>
 </head>
@@ -476,7 +256,6 @@
         
         <!-- Admin Panel -->
         <div id="adminPanel" style="display: none;">
-            <!-- Header -->
             <div class="dashboard-header">
                 <h1><i class="bi bi-envelope-paper-fill"></i> Message Inbox</h1>
                 <div>
@@ -486,7 +265,6 @@
                 </div>
             </div>
             
-            <!-- Stats -->
             <div class="stats-grid" id="statsGrid">
                 <div class="stat-card">
                     <div class="number" id="totalMessages">0</div>
@@ -506,7 +284,6 @@
                 </div>
             </div>
             
-            <!-- Messages Table -->
             <div class="table-container">
                 <h3><i class="bi bi-inbox-fill"></i> All Messages</h3>
                 <div class="table-wrapper">
@@ -582,267 +359,287 @@
     </div>
     
     <script>
-        // ============================================
-        // CONFIGURATION
-        // ============================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // Replace with your URL
-        const ADMIN_PASSWORD = 'admin123'; // Change this to your password
+    // ============================================
+    // CONFIGURATION - REPLACE WITH YOUR URL
+    // ============================================
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbym6EXqWqZ1gigv-SbCy0G1hAv8j3Vsw1g65RpT6cv-umyQUg3zwxBMs2Wk28ELNS9b/exec';
+    const ADMIN_PASSWORD = 'admin123'; // Change this
+    
+    let currentMessages = [];
+    let currentMessageId = null;
+
+    // ============================================
+    // LOGIN
+    // ============================================
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const password = document.getElementById('adminPassword').value;
         
-        let currentMessages = [];
-        let currentMessageId = null;
+        if (password === ADMIN_PASSWORD) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            loadMessages();
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('loginError').style.display = 'none';
+            }, 3000);
+        }
+    });
+
+    function logout() {
+        document.getElementById('adminPanel').style.display = 'none';
+        document.getElementById('loginScreen').style.display = 'block';
+        document.getElementById('adminPassword').value = '';
+        document.getElementById('loginError').style.display = 'none';
+    }
+
+    // ============================================
+    // LOAD MESSAGES
+    // ============================================
+    function loadMessages() {
+        const tbody = document.getElementById('messagesBody');
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center py-5">
+                    <div class="spinner-border text-warning" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="mt-2 text-muted">Loading messages...</div>
+                </td>
+            </tr>
+        `;
         
-        // ============================================
-        // LOGIN
-        // ============================================
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const password = document.getElementById('adminPassword').value;
-            
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                loadMessages();
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ action: 'getMessages' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                currentMessages = data.messages || [];
+                renderMessages(currentMessages);
+                updateStats(currentMessages);
             } else {
-                document.getElementById('loginError').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('loginError').style.display = 'none';
-                }, 3000);
+                showError('Failed to load messages: ' + (data.error || 'Unknown error'));
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('Failed to connect to server. Please check your internet connection.');
         });
+    }
+
+    // ============================================
+    // DELETE MESSAGE
+    // ============================================
+    function deleteMessage(rowIndex) {
+        if (!confirm('Are you sure you want to delete this message?')) return;
         
-        // ============================================
-        // LOGOUT
-        // ============================================
-        function logout() {
-            document.getElementById('adminPanel').style.display = 'none';
-            document.getElementById('loginScreen').style.display = 'block';
-            document.getElementById('adminPassword').value = '';
-            document.getElementById('loginError').style.display = 'none';
-        }
-        
-        // ============================================
-        // LOAD MESSAGES
-        // ============================================
-        function loadMessages() {
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'getMessages' })
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                action: 'deleteMessage',
+                rowIndex: rowIndex 
             })
-            .then(response => {
-                // Since we're using no-cors, we can't read the response
-                // For demo, we'll use sample data
-                // In production, you'll need to handle CORS properly
-                loadSampleData();
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                currentMessages = currentMessages.filter(m => m.rowIndex !== rowIndex);
+                renderMessages(currentMessages);
+                updateStats(currentMessages);
+                closeModal();
+            } else {
+                alert('Error deleting message: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting message. Please try again.');
+        });
+    }
+
+    // ============================================
+    // MARK AS READ
+    // ============================================
+    function markAsRead(rowIndex) {
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                action: 'markAsRead',
+                rowIndex: rowIndex 
             })
-            .catch(error => {
-                console.error('Error loading messages:', error);
-                loadSampleData();
-            });
-        }
-        
-        // ============================================
-        // SAMPLE DATA (For demo)
-        // ============================================
-        function loadSampleData() {
-            const sampleMessages = [
-                {
-                    id: '1',
-                    name: 'John Doe',
-                    email: 'john@example.com',
-                    subject: 'Project Inquiry - Video Editing',
-                    message: 'I need a professional video editor for my YouTube channel. I have a project that needs to be edited within 2 weeks. Can you share your portfolio and rates?',
-                    status: 'Unread',
-                    date: '2024-01-15',
-                    timestamp: '2024-01-15 10:30:00'
-                },
-                {
-                    id: '2',
-                    name: 'Jane Smith',
-                    email: 'jane@example.com',
-                    subject: 'Collaboration Opportunity',
-                    message: 'Hi! I saw your portfolio and I\'m impressed with your work. I\'m looking for a video editor for a short film project. Would you be interested in collaborating?',
-                    status: 'Unread',
-                    date: '2024-01-14',
-                    timestamp: '2024-01-14 14:45:00'
-                },
-                {
-                    id: '3',
-                    name: 'Mike Johnson',
-                    email: 'mike@example.com',
-                    subject: 'Portfolio Review Request',
-                    message: 'I\'m starting my own video editing business and I\'d love to get some feedback on my portfolio. Could you please take a look and give me some advice?',
-                    status: 'Read',
-                    date: '2024-01-13',
-                    timestamp: '2024-01-13 09:15:00'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const msg = currentMessages.find(m => m.rowIndex === rowIndex);
+                if (msg) {
+                    msg.status = 'Read';
+                    renderMessages(currentMessages);
+                    updateStats(currentMessages);
                 }
-            ];
-            
-            currentMessages = sampleMessages;
-            renderMessages(sampleMessages);
-            updateStats(sampleMessages);
-        }
-        
-        // ============================================
-        // RENDER MESSAGES
-        // ============================================
-        function renderMessages(messages) {
-            const tbody = document.getElementById('messagesBody');
-            
-            if (messages.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6">
-                            <div class="empty-state">
-                                <i class="bi bi-inbox"></i>
-                                <h3>No Messages Yet</h3>
-                                <p>Your inbox is empty. Messages will appear here when someone contacts you.</p>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-                return;
             }
-            
-            tbody.innerHTML = messages.map((msg, index) => `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td><strong>${msg.name}</strong></td>
-                    <td>${msg.subject}</td>
-                    <td>${msg.date}</td>
-                    <td>
-                        <span class="status-badge ${msg.status === 'Read' ? 'status-read' : 'status-unread'}">
-                            ${msg.status}
-                        </span>
-                    </td>
-                    <td>
-                        <button class="btn-action btn-view" onclick="viewMessage('${msg.id}')">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                        ${msg.status === 'Unread' ? `
-                            <button class="btn-action btn-read" onclick="markAsRead('${msg.id}')">
-                                <i class="bi bi-check2"></i>
-                            </button>
-                        ` : ''}
-                        <button class="btn-action btn-delete" onclick="deleteMessage('${msg.id}')">
-                            <i class="bi bi-trash3"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-        
-        // ============================================
-        // UPDATE STATS
-        // ============================================
-        function updateStats(messages) {
-            const total = messages.length;
-            const unread = messages.filter(m => m.status === 'Unread').length;
-            const read = total - unread;
-            const today = messages.filter(m => m.date === new Date().toISOString().split('T')[0]).length;
-            
-            document.getElementById('totalMessages').textContent = total;
-            document.getElementById('unreadMessages').textContent = unread;
-            document.getElementById('readMessages').textContent = read;
-            document.getElementById('todayMessages').textContent = today;
-        }
-        
-        // ============================================
-        // VIEW MESSAGE
-        // ============================================
-        function viewMessage(id) {
-            const msg = currentMessages.find(m => m.id === id);
-            if (!msg) return;
-            
-            currentMessageId = id;
-            
-            document.getElementById('modalName').textContent = msg.name;
-            document.getElementById('modalEmail').textContent = msg.email;
-            document.getElementById('modalSubject').textContent = msg.subject;
-            document.getElementById('modalDate').textContent = msg.timestamp || msg.date;
-            document.getElementById('modalMessage').textContent = msg.message;
-            
-            document.getElementById('messageModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Mark as read when viewed
-            if (msg.status === 'Unread') {
-                markAsRead(id);
-            }
-        }
-        
-        // ============================================
-        // CLOSE MODAL
-        // ============================================
-        function closeModal() {
-            document.getElementById('messageModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        // ============================================
-        // MARK AS READ
-        // ============================================
-        function markAsRead(id) {
-            const msg = currentMessages.find(m => m.id === id);
+        })
+        .catch(error => {
+            console.error('Error marking as read:', error);
+            // Fallback: update locally
+            const msg = currentMessages.find(m => m.rowIndex === rowIndex);
             if (msg) {
                 msg.status = 'Read';
                 renderMessages(currentMessages);
                 updateStats(currentMessages);
             }
+        });
+    }
+
+    // ============================================
+    // RENDER MESSAGES
+    // ============================================
+    function renderMessages(messages) {
+        const tbody = document.getElementById('messagesBody');
+        
+        if (!messages || messages.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6">
+                        <div class="empty-state">
+                            <i class="bi bi-inbox"></i>
+                            <h3>No Messages Yet</h3>
+                            <p>Your inbox is empty. Messages will appear here when someone contacts you.</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            return;
         }
         
-        function markAsReadFromModal() {
-            if (currentMessageId) {
-                markAsRead(currentMessageId);
-            }
-        }
+        tbody.innerHTML = messages.map((msg, index) => `
+            <tr>
+                <td>${index + 1}</td>
+                <td><strong>${msg.name}</strong></td>
+                <td>${msg.subject}</td>
+                <td>${msg.date}</td>
+                <td>
+                    <span class="status-badge ${msg.status === 'Read' ? 'status-read' : 'status-unread'}">
+                        ${msg.status}
+                    </span>
+                </td>
+                <td>
+                    <button class="btn-action btn-view" onclick="viewMessage(${msg.rowIndex})">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    ${msg.status === 'Unread' ? `
+                        <button class="btn-action btn-read" onclick="markAsRead(${msg.rowIndex})">
+                            <i class="bi bi-check2"></i>
+                        </button>
+                    ` : ''}
+                    <button class="btn-action btn-delete" onclick="deleteMessage(${msg.rowIndex})">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function updateStats(messages) {
+        const total = messages.length;
+        const unread = messages.filter(m => m.status === 'Unread').length;
+        const read = total - unread;
+        const today = messages.filter(m => {
+            const msgDate = new Date(m.date);
+            const todayDate = new Date();
+            return msgDate.getDate() === todayDate.getDate() &&
+                   msgDate.getMonth() === todayDate.getMonth() &&
+                   msgDate.getFullYear() === todayDate.getFullYear();
+        }).length;
         
-        // ============================================
-        // DELETE MESSAGE
-        // ============================================
-        function deleteMessage(id) {
-            if (!confirm('Are you sure you want to delete this message?')) return;
-            
-            currentMessages = currentMessages.filter(m => m.id !== id);
-            renderMessages(currentMessages);
-            updateStats(currentMessages);
-            
-            // Close modal if open
+        document.getElementById('totalMessages').textContent = total;
+        document.getElementById('unreadMessages').textContent = unread;
+        document.getElementById('readMessages').textContent = read;
+        document.getElementById('todayMessages').textContent = today;
+    }
+
+    function showError(message) {
+        const tbody = document.getElementById('messagesBody');
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    <div class="text-center py-5 text-danger">
+                        <i class="bi bi-exclamation-triangle-fill" style="font-size: 48px;"></i>
+                        <h4 class="mt-3">${message}</h4>
+                        <button class="btn btn-warning mt-3" onclick="loadMessages()">
+                            <i class="bi bi-arrow-clockwise"></i> Retry
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }
+
+    // ============================================
+    // VIEW MESSAGE
+    // ============================================
+    function viewMessage(rowIndex) {
+        const msg = currentMessages.find(m => m.rowIndex === rowIndex);
+        if (!msg) return;
+        
+        currentMessageId = rowIndex;
+        
+        document.getElementById('modalName').textContent = msg.name;
+        document.getElementById('modalEmail').textContent = msg.email;
+        document.getElementById('modalSubject').textContent = msg.subject;
+        document.getElementById('modalDate').textContent = msg.timestamp ? new Date(msg.timestamp).toLocaleString() : msg.date;
+        document.getElementById('modalMessage').textContent = msg.message;
+        
+        document.getElementById('messageModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        if (msg.status === 'Unread') {
+            markAsRead(rowIndex);
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('messageModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function markAsReadFromModal() {
+        if (currentMessageId) {
+            markAsRead(currentMessageId);
+        }
+    }
+
+    function deleteFromModal() {
+        if (currentMessageId) {
+            deleteMessage(currentMessageId);
+        }
+    }
+
+    // ============================================
+    // KEYBOARD SHORTCUTS
+    // ============================================
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
             closeModal();
         }
-        
-        function deleteFromModal() {
-            if (currentMessageId) {
-                deleteMessage(currentMessageId);
-            }
-        }
-        
-        // ============================================
-        // KEYBOARD SHORTCUTS
-        // ============================================
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-        
-        // ============================================
-        // AUTO-REFRESH
-        // ============================================
-        setInterval(() => {
-            if (document.getElementById('adminPanel').style.display !== 'none') {
-                loadMessages();
-            }
-        }, 60000); // Refresh every minute
-        
-        // ============================================
-        // INIT
-        // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('loginScreen').style.display = 'block';
-            document.getElementById('adminPanel').style.display = 'none';
-        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('loginScreen').style.display = 'block';
+        document.getElementById('adminPanel').style.display = 'none';
+    });
     </script>
 </body>
 </html>
