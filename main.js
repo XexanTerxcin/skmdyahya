@@ -318,7 +318,7 @@
 // ============================================
 
 const BLOG_API =
-"https://script.google.com/macros/s/AKfycbyFTDz7wv80HeDHPBIB88tx52fUqFXiZrWe69O6tINrH-Hpqex-_O8A_tW_lT8tO6pW/exec";
+"https://script.google.com/macros/s/AKfycbwybwJ3qvrQQTVkvUaYls8RjNM8t8BMJg9q_X68QuRa514ScwlEE6CM9nDWWvfVyK8h/exec";
 
 let currentPage = 1;
 
@@ -327,10 +327,12 @@ function loadBlogPosts(page = 1){
     currentPage = page;
 
     fetch(`${BLOG_API}?page=${page}`)
-    .then(res=>res.json())
-    .then(data=>{
+    .then(res => res.json())
+    .then(data => {
 
-        if(!data.success){
+        console.log("BLOG API:", data);
+
+        if (!data.success) {
 
             document.getElementById("blogContainer").innerHTML=
             "<h3>Unable to load posts.</h3>";
