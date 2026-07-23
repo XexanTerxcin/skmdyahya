@@ -126,7 +126,7 @@
             };
             
             // Google Apps Script URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwx2RMJRvxPuCV4m4M6sVakws3OlVgIJnEHA67Jqtzw7n8h15BLN8b_uAWemhuJOalZ/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbym6EXqWqZ1gigv-SbCy0G1hAv8j3Vsw1g65RpT6cv-umyQUg3zwxBMs2Wk28ELNS9b/exec';
             
             // Send data to Google Apps Script
             fetch(scriptURL, {
