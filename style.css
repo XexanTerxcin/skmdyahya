@@ -78,7 +78,7 @@ a {
     height: 100vh;
     z-index: 0;
     overflow: hidden;
-    background: radial-gradient(circle at 30% 40%, #0b1f12, #030805 90%);
+    background: radial-gradient(circle at 30% 40%, #1a0a05, #080302 90%);
 }
 
 #galaxy-canvas {
@@ -145,7 +145,7 @@ a {
 
 .brand-name {
     font-family: Klavika, sans-serif;
-    font-size: 24px;
+    font-size: 38px;
     font-weight: 600;
     white-space: nowrap;
     display: flex;
@@ -448,7 +448,7 @@ a {
 }
 
 .a-3 {
-    padding: 10px 0 5px;
+    padding: 20px 0 5px;
     color: #ff6000;
     font-size: 24px;
 }
@@ -1151,7 +1151,7 @@ a {
 @media screen and (max-width: 1279px) and (min-width: 1024px) {
 
     .brand-name {
-        font-size: 20px;
+        font-size: 28px;
     }
     
     .logo img {
@@ -1564,7 +1564,7 @@ a {
 
 @media screen and (max-width: 768px) {
     .brand-name {
-        font-size: 16px;
+        font-size: 26px;
     }
     
     .logo img {
@@ -1847,16 +1847,16 @@ a {
     
     /* Brand name bigger on mobile */
     .brand-name {
-        font-size: 20px;
+        font-size: 32px;
         gap: 8px;
     }
     
     .call-me {
-        font-size: 20px;
+        font-size: 32px;
     }
     
     .yahya {
-        font-size: 22px;
+        font-size: 32px;
     }
     
     .header {
@@ -1969,7 +1969,7 @@ a {
 @media screen and (max-width: 480px) {
     /* Header */
     .brand-name {
-        font-size: 13px;
+        font-size: 28px;
     }
     
     .logo img {
@@ -2338,7 +2338,7 @@ a {
 @media screen and (max-width: 320px) {
     /* Header */
     .brand-name {
-        font-size: 11px;
+        font-size: 16px;
     }
     
     .logo img {
