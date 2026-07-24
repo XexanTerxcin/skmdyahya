@@ -406,6 +406,7 @@ a {
     display: block;
     border-radius: 2px;
     margin-top: -8px; /* Reduced from 8px */
+    margin-bottom: 20px;
     flex-shrink: 0;
 }
 
@@ -472,86 +473,137 @@ a {
     justify-content: center;
 }
 
+/* Skills Wrapper - Flex container */
+.skills-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 30px;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Left side - Skill Categories */
 .skills-left {
     flex: 1;
-    max-width: 720px;
-    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
 }
 
-.skill-box {
-    width: 100%;
-    max-width: 545px;
-    margin: 0 auto;
-}
-
-.s-1 {
-    font-size: 32px;
-    margin: 20px 0 10px 0;
-}
-
-.skill-name {
-    font-size: 24px;
-    color: #ffffff;
-    margin: 12px 0 8px 0;
-    float: left;
-    width: 70%;
-}
-
-.percentage {
-    font-size: 24px;
-    float: right;
-    margin: 12px 0 8px 0;
-    color: #ff6000;
-}
-
-.percentage-bar {
-    width: 100%;
-    clear: both;
-    padding: 0 0 10px 0;
-}
-
-.skill-bar {
-    height: 4px;
+/* Skill Category Card */
+.skill-category {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 16px;
-    background-color: #ff6000;
+    padding: 20px 25px 25px;
+    border: 1px solid rgba(255, 96, 0, 0.08);
+    transition: all 0.3s ease;
 }
 
-.skill-dvr {
-    background-color: #a6ff00;
-    width: 90%;
+.skill-category:hover {
+    border-color: rgba(255, 96, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(255, 96, 0, 0.05);
+    transform: translateY(-2px);
 }
 
-.skill-wf {
-    width: 70%;
+/* Category Title */
+.category-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ff6000;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(255, 96, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.skill-cc {
-    width: 60%;
+.category-title i {
+    font-size: 20px;
 }
 
-.skill-app {
-    width: 50%;
+/* Skill Items Container */
+.skill-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.skill-sl {
-    background-color: #a6ff00;
-    width: 100%;
+/* Individual Skill Item */
+.skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
+.skill-item:last-child {
+    border-bottom: none;
+}
+
+.skill-item .skill-name {
+    font-size: 15px;
+    color: #ddd;
+    font-weight: 400;
+}
+
+/* Skill Level Badges */
+.skill-level {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.skill-level.expert {
+    background: rgba(255, 96, 0, 0.25);
+    color: #ff6000;
+    border: 1px solid rgba(255, 96, 0, 0.3);
+}
+
+.skill-level.advanced {
+    background: rgba(255, 96, 0, 0.12);
+    color: #ffaa66;
+    border: 1px solid rgba(255, 96, 0, 0.15);
+}
+
+.skill-level.intermediate {
+    background: rgba(255, 255, 255, 0.05);
+    color: #888;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Right side - Image */
 .skills-right {
-    flex: 0 0 30%;
-    max-width: 400px;
-    padding: 20px;
+    flex: 0 0 280px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 }
 
 .skill-image {
     width: 100%;
-    max-width: 300px;
+    max-width: 280px;
     height: auto;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 96, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
+
+.skill-image:hover {
+    transform: scale(1.02);
+    border-color: rgba(255, 96, 0, 0.3);
+    box-shadow: 0 15px 50px rgba(255, 96, 0, 0.1);
+}
+
 
 /* ===== BLOG / WORK SECTION ===== */
 #work-page {
@@ -691,20 +743,23 @@ a {
 }
 
 /* Pagination */
+/* ===== PAGINATION - CUSTOM STYLES ===== */
 .pagination-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 20px 0 10px;
+    padding: 30px 0 20px;
 }
 
 .pagination {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     list-style: none;
     padding: 0;
     margin: 0;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .pagination li {
@@ -716,40 +771,92 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 40px;
-    height: 40px;
-    padding: 0 12px;
-    border-radius: 8px;
-    background: #2a2a2a;
-    color: #888;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 12px;
+    background: rgba(42, 42, 42, 0.7);
+    backdrop-filter: blur(8px);
+    color: #aaa;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     cursor: pointer;
+    font-family: Klavika, sans-serif;
+    letter-spacing: 0.3px;
 }
 
+/* Hover effect */
 .pagination li a:hover {
-    background: rgba(255, 96, 0, 0.15);
+    background: rgba(255, 96, 0, 0.2);
     color: #ffffff;
-    border-color: rgba(255, 96, 0, 0.3);
+    border-color: rgba(255, 96, 0, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(255, 96, 0, 0.15);
 }
 
+/* Active page - using <a> tag */
+.pagination li.active a {
+    background: linear-gradient(135deg, #ff6000, #e05500) !important;
+    color: #ffffff !important;
+    border-color: #ff6000 !important;
+    box-shadow: 0 4px 25px rgba(255, 96, 0, 0.3) !important;
+    transform: scale(1.05) !important;
+    cursor: default !important;
+}
+
+/* Also style active span (if any) */
 .pagination li.active span {
-    background: #ff6000;
-    color: #ffffff;
-    border-color: #ff6000;
+    background: linear-gradient(135deg, #ff6000, #e05500) !important;
+    color: #ffffff !important;
+    border-color: #ff6000 !important;
+    box-shadow: 0 4px 25px rgba(255, 96, 0, 0.3) !important;
+    transform: scale(1.05) !important;
+    cursor: default !important;
 }
 
+/* Disabled (Previous/Next when not available) */
 .pagination li.disabled span {
     opacity: 0.3;
     cursor: not-allowed;
     pointer-events: none;
+    transform: none;
+    box-shadow: none;
 }
 
+/* Previous/Next buttons special style */
+.pagination li:first-child a,
+.pagination li:last-child a {
+    background: rgba(255, 96, 0, 0.1);
+    border-color: rgba(255, 96, 0, 0.15);
+    color: #ff6000;
+    font-weight: 600;
+    padding: 0 20px;
+    gap: 6px;
+}
+
+.pagination li:first-child a:hover,
+.pagination li:last-child a:hover {
+    background: rgba(255, 96, 0, 0.25);
+    border-color: rgba(255, 96, 0, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(255, 96, 0, 0.2);
+}
+
+.pagination li:first-child.disabled span,
+.pagination li:last-child.disabled span {
+    background: rgba(42, 42, 42, 0.4);
+    color: #666;
+    border-color: rgba(255, 255, 255, 0.03);
+    opacity: 0.5;
+}
+
+/* Pagination icons */
 .pagination li a i {
     font-size: 14px;
+    margin: 0 4px;
 }
 
 /* Loading State */
@@ -1076,6 +1183,21 @@ a {
 }
 
 
+@media screen and (max-width: 1200px) {
+    .skills-left {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .skills-right {
+        flex: 0 0 220px;
+    }
+    
+    .skill-image {
+        max-width: 220px;
+    }
+}
+
 @media screen and (max-width: 1024px) {
     .work-container {
         grid-template-columns: repeat(2, 1fr);
@@ -1205,42 +1327,7 @@ a {
     }
     
     /* Skills */
-    #skills-page {
-        padding: 60px 0 30px;
-    }
-    
-    .skills-headline {
-        font-size: 36px;
-    }
-    
-    .skills-left {
-        max-width: 100%;
-        padding: 0 20px;
-    }
-    
-    .skill-box {
-        max-width: 100%;
-    }
-    
-    .s-1 {
-        font-size: 28px;
-        text-align: center;
-    }
-    
-    .skill-name {
-        width: 70%;
-        font-size: 20px;
-    }
-    
-    .percentage {
-        font-size: 20px;
-    }
-    
-    .skills-right {
-        flex: 0 0 100%;
-        max-width: 300px;
-        padding: 10px;
-    }
+
     
     /* Contact */
     #contact-page {
@@ -1276,6 +1363,31 @@ a {
         width: 35px;
     }
 }
+
+@media screen and (max-width: 992px) {
+    .skills-wrapper {
+        flex-direction: column-reverse;
+        align-items: center;
+        padding: 0 20px;
+    }
+    
+    .skills-left {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .skills-right {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 280px;
+        padding: 10px 0 20px;
+    }
+    
+    .skill-image {
+        max-width: 200px;
+    }
+}
+
 
 /* ===== MOBILE (481px - 768px) ===== */
 @media screen and (max-width: 768px) and (min-width: 481px) {
@@ -1405,49 +1517,7 @@ a {
     }
     
     /* Skills */
-    #skills-page {
-        padding: 50px 0 20px;
-    }
-    
-    .skills-left {
-        max-width: 100%;
-        padding: 0 15px;
-    }
-    
-    .skill-box {
-        max-width: 100%;
-    }
-    
-    .s-1 {
-        font-size: 24px;
-        text-align: center;
-        margin: 10px 0;
-    }
-    
-    .skill-name {
-        width: 65%;
-        font-size: 18px;
-        margin: 10px 0 6px 0;
-    }
-    
-    .percentage {
-        font-size: 18px;
-        margin: 10px 0 6px 0;
-    }
-    
-    .percentage-bar {
-        padding: 0 0 8px 0;
-    }
-    
-    .skill-bar {
-        height: 3px;
-    }
-    
-    .skills-right {
-        flex: 0 0 100%;
-        max-width: 200px;
-        padding: 10px;
-    }
+
 
     /* Contact */
     #contact-page {
@@ -1546,6 +1616,41 @@ a {
         height: 3px;
         margin-top: -8px;
     }
+    
+    .skills-wrapper {
+        padding: 0 15px;
+        gap: 25px;
+    }
+    
+    .skills-left {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .skill-category {
+        padding: 16px 18px 20px;
+    }
+    
+    .category-title {
+        font-size: 16px;
+    }
+    
+    .skill-item .skill-name {
+        font-size: 14px;
+    }
+    
+    .skill-level {
+        font-size: 11px;
+        padding: 2px 10px;
+    }
+    
+    .skills-right {
+        max-width: 220px;
+    }
+    
+    .skill-image {
+        max-width: 180px;
+    }
 
     .work-container {
         grid-template-columns: 1fr;
@@ -1561,12 +1666,52 @@ a {
         font-size: 18px;
     }
     
+    .pagination {
+        gap: 6px;
+    }
+    
     .pagination li a,
     .pagination li span {
-        min-width: 35px;
-        height: 35px;
+        min-width: 38px;
+        height: 38px;
+        padding: 0 12px;
         font-size: 13px;
-        padding: 0 10px;
+        border-radius: 10px;
+    }
+    
+    .pagination li:first-child a,
+    .pagination li:last-child a {
+        padding: 0 14px;
+        font-size: 13px;
+    }
+        .blog-modal-content {
+        padding: 25px 20px;
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .blog-modal-body {
+        max-height: calc(90vh - 50px);
+    }
+    
+    .modal-post-title {
+        font-size: 24px;
+    }
+    
+    .modal-post-description {
+        font-size: 16px;
+    }
+    
+    .modal-post-image {
+        max-height: 250px;
+    }
+    
+    .blog-modal-close {
+        top: 10px;
+        right: 12px;
+        font-size: 28px;
+        width: 35px;
+        height: 35px;
     }
 }
 
@@ -1921,53 +2066,52 @@ a {
     }
     
     /* Skills */
-    #skills-page {
-        padding: 40px 0 15px;
-        min-height: auto;
-    }
-    
-    .skills-left {
-        max-width: 100%;
+    .skills-wrapper {
         padding: 0 10px;
+        gap: 20px;
     }
     
-    .skill-box {
-        max-width: 100%;
+    .skill-category {
+        padding: 14px 14px 16px;
+        border-radius: 12px;
     }
     
-    .s-1 {
-        font-size: 20px;
-        text-align: center;
-        margin: 5px 0;
+    .category-title {
+        font-size: 14px;
+        gap: 8px;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
     }
     
-    .skill-name {
-        width: 60%;
-        font-size: 15px;
-        margin: 8px 0 4px 0;
+    .category-title i {
+        font-size: 16px;
     }
     
-    .percentage {
-        font-size: 15px;
-        margin: 8px 0 4px 0;
+    .skill-item {
+        padding: 5px 0;
+        flex-wrap: wrap;
+        gap: 4px;
     }
     
-    .percentage-bar {
-        padding: 0 0 5px 0;
+    .skill-item .skill-name {
+        font-size: 13px;
     }
     
-    .skill-bar {
-        height: 3px;
+    .skill-level {
+        font-size: 10px;
+        padding: 2px 8px;
     }
     
     .skills-right {
-        flex: 0 0 100%;
-        max-width: 150px;
-        padding: 5px;
+        max-width: 180px;
+        padding: 5px 0 15px;
     }
-
+    
+    .skill-image {
+        max-width: 150px;
+    }
     /*Work*/
-        .work-container {
+    .work-container {
         width: 100%;
         padding: 0 10px;
     }
@@ -1980,6 +2124,25 @@ a {
         height: 150px;
     }
     
+        .pagination {
+        gap: 4px;
+    }
+    
+    .pagination li a,
+    .pagination li span {
+        min-width: 34px;
+        height: 34px;
+        padding: 0 10px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+    
+    .pagination li:first-child a,
+    .pagination li:last-child a {
+        padding: 0 10px;
+        font-size: 11px;
+    }
+
     /* Contact */
     #contact-page {
         padding: 40px 0 15px;
@@ -2045,6 +2208,30 @@ a {
     
     .dc, .ins, .fb, .tw {
         margin: 0 5px !important;
+    }
+        .blog-modal-content {
+        padding: 20px 15px;
+        border-radius: 16px;
+    }
+    
+    .modal-post-title {
+        font-size: 20px;
+    }
+    
+    .modal-post-description {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+    
+    .modal-post-meta {
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 12px;
+    }
+    
+    .modal-post-image {
+        max-height: 180px;
+        border-radius: 12px;
     }
 }
 
@@ -2124,22 +2311,7 @@ a {
     }
     
     /* Skills */
-    .skills-headline {
-        font-size: 24px;
-    }
-    
-    .s-1 {
-        font-size: 18px;
-    }
-    
-    .skill-name {
-        font-size: 13px;
-        width: 55%;
-    }
-    
-    .percentage {
-        font-size: 13px;
-    }
+
     
     /* Contact */
     .contact-headline {
@@ -2189,5 +2361,193 @@ a {
         min-height: auto;
         padding: 20px 0;
         page-break-inside: avoid;
+    }
+}
+
+/* ======================================== */
+/* ===== BLOG POST MODAL ===== */
+/* ======================================== */
+
+/* Modal Container */
+.blog-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.blog-modal.active {
+    display: flex;
+}
+
+/* Modal Overlay */
+.blog-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Glassmorphism Modal Content */
+.blog-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    background: rgba(33, 33, 33, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 96, 0, 0.2);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(255, 96, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    overflow: hidden;
+    animation: modalSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Modal Body - Scrollable */
+.blog-modal-body {
+    max-height: calc(85vh - 80px);
+    overflow-y: auto;
+    padding-right: 10px;
+    color: #ffffff;
+}
+
+/* Custom Scrollbar for Modal */
+.blog-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.blog-modal-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.blog-modal-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 96, 0, 0.4);
+    border-radius: 10px;
+}
+
+.blog-modal-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 96, 0, 0.6);
+}
+
+/* Modal Close Button */
+.blog-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
+    color: #ffffff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.blog-modal-close:hover {
+    transform: rotate(90deg);
+    color: #ff6000;
+    background: rgba(255, 96, 0, 0.15);
+}
+
+/* Modal Content Styles */
+.modal-post-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-post-category {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ff6000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    background: rgba(255, 96, 0, 0.15);
+    padding: 5px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 96, 0, 0.1);
+}
+
+.modal-post-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.modal-post-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-post-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.modal-post-meta i {
+    color: #ff6000;
+}
+
+.modal-post-description {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #ddd;
+    white-space: pre-wrap;
+}
+
+/* Animations */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
     }
 }

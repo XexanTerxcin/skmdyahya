@@ -321,51 +321,41 @@ const BLOG_API =
 "https://script.google.com/macros/s/AKfycbwybwJ3qvrQQTVkvUaYls8RjNM8t8BMJg9q_X68QuRa514ScwlEE6CM9nDWWvfVyK8h/exec";
 
 let currentPage = 1;
+let blogPosts = []; // Store all posts for modal access
 
 function loadBlogPosts(page = 1){
 
     currentPage = page;
 
     fetch(`${BLOG_API}?page=${page}`)
-    .then(res => res.json())
-    .then(data => {
+        .then(res => res.json())
+        .then(data => {
+            console.log("BLOG API:", data);
 
-        console.log("BLOG API:", data);
+            if (!data.success) {
+                document.getElementById("blogContainer").innerHTML =
+                    "<h3>Unable to load posts.</h3>";
+                return;
+            }
 
-        if (!data.success) {
-
-            document.getElementById("blogContainer").innerHTML=
-            "<h3>Unable to load posts.</h3>";
-
-            return;
-
-        }
-
-        renderPosts(data.posts);
-
-        renderPagination(
-            data.currentPage,
-            data.totalPages
-        );
-
-    })
-    .catch(err=>{
-
-        console.error(err);
-
-        document.getElementById("blogContainer").innerHTML=
-        "<h3>Failed to load posts.</h3>";
-
-    });
-
+            blogPosts = data.posts; // Store posts
+            renderPosts(data.posts);
+            renderPagination(data.currentPage, data.totalPages);
+        })
+        .catch(err => {
+            console.error(err);
+            document.getElementById("blogContainer").innerHTML =
+                "<h3>Failed to load posts.</h3>";
+        });
 }
 
-function renderPosts(posts){
-    const container=document.getElementById("blogContainer");
-    let html="";
-    posts.forEach(post=>{
-        html+=`
-<div class="blog-card">
+// ===== UPDATED: renderPosts with click handlers =====
+function renderPosts(posts) {
+    const container = document.getElementById("blogContainer");
+    let html = "";
+    posts.forEach((post, index) => {
+        html += `
+<div class="blog-card" data-index="${index}">
     <div class="blog-card-image">
         <img src="${post.image}" alt="${post.title}">
     </div>
@@ -381,8 +371,76 @@ function renderPosts(posts){
 </div>
 `;
     });
-    container.innerHTML=html;
+    container.innerHTML = html;
+
+    // Add click event listeners to blog cards
+    document.querySelectorAll('.blog-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            const post = posts[index];
+            if (post) {
+                openBlogModal(post);
+            }
+        });
+    });
 }
+
+
+// ===== BLOG MODAL FUNCTIONS =====
+
+function openBlogModal(post) {
+    const modal = document.getElementById('blogModal');
+    const body = document.getElementById('blogModalBody');
+    
+    // Build modal content
+    body.innerHTML = `
+        ${post.image ? `<img src="${post.image}" alt="${post.title}" class="modal-post-image">` : ''}
+        <span class="modal-post-category">${post.category || 'Uncategorized'}</span>
+        <h2 class="modal-post-title">${escapeHTML(post.title)}</h2>
+        <div class="modal-post-meta">
+            <span><i class="bi bi-calendar3"></i> ${post.date || 'No date'}</span>
+            <span><i class="bi bi-clock"></i> ${post.readTime || '1 min read'}</span>
+        </div>
+        <div class="modal-post-description">${escapeHTML(post.fullDescription || post.description || 'No description available.')}</div>
+    `;
+    
+    // Show modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeBlogModal() {
+    const modal = document.getElementById('blogModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+
+// ===== INIT MODAL EVENTS =====
+
+function initBlogModal() {
+    const modal = document.getElementById('blogModal');
+    const closeBtn = document.getElementById('blogModalClose');
+    const overlay = document.getElementById('blogModalOverlay');
+    
+    // Close on button click
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeBlogModal);
+    }
+    
+    // Close on overlay click
+    if (overlay) {
+        overlay.addEventListener('click', closeBlogModal);
+    }
+    
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeBlogModal();
+        }
+    });
+}
+
 
 function renderPagination(current,total){
 
@@ -462,7 +520,7 @@ function init() {
     initContactForm();
     initHamburgerMenu();
     initScrollReveal();
-    
+    initBlogModal(); // Initialize modal
     // Load blog posts
     loadBlogPosts();
 }
