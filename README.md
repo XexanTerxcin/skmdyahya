@@ -4,7 +4,6 @@
 
 ![Portfolio Banner](https://img.shields.io/badge/Portfolio-Live-orange?style=for-the-badge&logo=vercel&logoColor=white)
 ![Version](https://img.shields.io/badge/Version-2.0.0-orange?style=for-the-badge&logo=github&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-orange?style=for-the-badge&logo=opensourceinitiative&logoColor=white)
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -89,30 +88,6 @@ This portfolio serves as a **comprehensive showcase** of my:
 - A modern web browser
 - Basic understanding of HTML/CSS/JS (for customization)
 
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/skmdyahya/portfolio.git
-
-# Navigate to project directory
-cd portfolio
-
-# Open in browser
-open index.html
-```
-
-### Customization
-
-```css
-/* Change theme color - style.css */
-:root {
-    --primary-color: #ff6000;  /* Your custom color */
-    --primary-glow: rgba(255, 96, 0, 0.3);
-}
-```
-
----
 
 ## 📁 Project Structure
 
@@ -121,9 +96,7 @@ portfolio/
 ├── 📄 index.html          # Main HTML file
 ├── 🎨 style.css           # Custom styles
 ├── ⚡ main.js             # JavaScript functionality
-├── 📁 assets/             # Images, icons, resources
-│   ├── 📸 images/         # Profile, project images
-│   └── 🎯 icons/          # Social media icons
+├── 📸 images/             # Profile, project images
 └── 📄 README.md           # This file
 ```
 
@@ -164,12 +137,6 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
