@@ -500,3 +500,291 @@ function init() {
     // window.Portfolio = publicAPI;
     
 })(); // End of IIFE
+
+// ============================================
+// 3D GALAXY BACKGROUND
+// ============================================
+
+(function() {
+    'use strict';
+
+    const canvas = document.getElementById('galaxy-canvas');
+    const container = document.getElementById('galaxy-bg');
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    let w, h;
+    let centerX, centerY;
+
+    // ----- Particle count -----
+    const PARTICLE_COUNT = 5000;
+    let particles = [];
+
+    // ----- Mouse tracking -----
+    let mouseX = 0.5;
+    let mouseY = 0.5;
+    let targetMouseX = 0.5;
+    let targetMouseY = 0.5;
+
+    let lastTime = 0;
+    const DRIFT_SPEED_BASE = 0.003;
+
+    // ----- 3D rotation angles -----
+    let rotX = 0;
+    let rotY = 0;
+    let targetRotX = 0;
+    let targetRotY = 0;
+
+    // ----- Helpers -----
+    function rand(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    // ----- 3D rotation matrix -----
+    function rotate3D(x, y, z, angleX, angleY) {
+        let cosY = Math.cos(angleY);
+        let sinY = Math.sin(angleY);
+        let x1 = x * cosY - z * sinY;
+        let z1 = x * sinY + z * cosY;
+        let y1 = y;
+
+        let cosX = Math.cos(angleX);
+        let sinX = Math.sin(angleX);
+        let y2 = y1 * cosX - z1 * sinX;
+        let z2 = y1 * sinX + z1 * cosX;
+        let x2 = x1;
+
+        return { x: x2, y: y2, z: z2 };
+    }
+
+    // ----- Project 3D to 2D -----
+    function project3D(x3d, y3d, z3d, fov) {
+        const perspective = fov / (fov + z3d);
+        return {
+            x: x3d * perspective,
+            y: y3d * perspective,
+            scale: perspective
+        };
+    }
+
+    // ----- Particle factory - pure neon green -----
+   // ----- Particle factory - pure orange (#ff6600) -----
+function createParticle() {
+    // #ff6600 = hsl(24, 100%, 50%)
+    const hue = 24; // Orange
+    const sat = 100;
+    const lig = 50; // Bright neon
+
+    let size;
+    const rnd = Math.random();
+    if (rnd < 0.70) {
+        size = rand(0.1, 0.4);
+    } else if (rnd < 0.90) {
+        size = rand(0.4, 0.8);
+    } else if (rnd < 0.98) {
+        size = rand(0.8, 1.4);
+    } else {
+        size = rand(1.4, 2.5);
+    }
+
+    const range = 1.8;
+    return {
+        x3d: rand(-range, range),
+        y3d: rand(-range, range),
+        z3d: rand(-range, range),
+        size: size,
+        hue: hue,
+        sat: sat,
+        lig: lig,
+        alpha: 1.0,
+        vx: rand(-0.001, 0.001),
+        vy: rand(-0.001, 0.001),
+        vz: rand(-0.001, 0.001),
+        life: 1.0,
+        decay: rand(0.0001, 0.001) * (0.5 + Math.random() * 0.8),
+        phase: rand(0, Math.PI * 2),
+        type: Math.min(2, Math.floor(rnd * 3))
+    };
+}
+
+    // ----- Init particles -----
+    function initParticles() {
+        particles = [];
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(createParticle());
+        }
+    }
+
+    // ----- Resize -----
+    function resize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
+        centerX = w / 2;
+        centerY = h / 2;
+    }
+
+    // ----- Update particles -----
+    function updateParticles(time) {
+        const delta = Math.min(0.05, (time - lastTime) / 16);
+        lastTime = time;
+
+        for (let p of particles) {
+            p.x3d += p.vx * delta * 2;
+            p.y3d += p.vy * delta * 2;
+            p.z3d += p.vz * delta * 2;
+
+            const bound = 2.0;
+            if (p.x3d > bound) p.x3d = -bound;
+            else if (p.x3d < -bound) p.x3d = bound;
+            if (p.y3d > bound) p.y3d = -bound;
+            else if (p.y3d < -bound) p.y3d = bound;
+            if (p.z3d > bound) p.z3d = -bound;
+            else if (p.z3d < -bound) p.z3d = bound;
+
+            p.life -= p.decay * delta * 1.5;
+            if (p.life <= 0.0) {
+                const newP = createParticle();
+                newP.x3d = p.x3d + rand(-0.05, 0.05);
+                newP.y3d = p.y3d + rand(-0.05, 0.05);
+                newP.z3d = p.z3d + rand(-0.05, 0.05);
+                Object.assign(p, newP);
+                p.life = 1.0;
+                p.decay = rand(0.0001, 0.001) * (0.5 + Math.random() * 0.8);
+            }
+
+            p.phase += 0.005 * delta;
+        }
+
+        mouseX += (targetMouseX - mouseX) * 0.15;
+        mouseY += (targetMouseY - mouseY) * 0.15;
+
+        targetRotY = (mouseX - 0.5) * 0.8;
+        targetRotX = (mouseY - 0.5) * 0.8;
+
+        rotX += (targetRotX - rotX) * 0.1;
+        rotY += (targetRotY - rotY) * 0.1;
+    }
+
+    // ----- Render -----
+    function render() {
+    // Background
+    const grad = ctx.createRadialGradient(
+        centerX * 0.7, centerY * 0.6, 50,
+        centerX * 0.4, centerY * 0.3, w * 0.9
+    );
+    grad.addColorStop(0, '#1a0a05');
+    grad.addColorStop(0.5, '#0d0604');
+    grad.addColorStop(1, '#040202');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.globalCompositeOperation = 'source-over';
+
+    const fov = 2.5;
+    const scale3D = Math.min(w, h) * 0.5;
+
+    const sorted = [...particles].sort((a, b) => a.z3d - b.z3d);
+
+    for (let p of sorted) {
+        const rotated = rotate3D(p.x3d, p.y3d, p.z3d, rotX, rotY);
+        const projected = project3D(rotated.x, rotated.y, rotated.z, fov);
+
+        if (rotated.z < -fov * 0.8) continue;
+
+        const px = centerX + projected.x * scale3D;
+        const py = centerY + projected.y * scale3D;
+        const scale = projected.scale;
+
+        const lifeFactor = 0.7 + 0.3 * Math.sin(p.phase);
+        let size = p.size * scale * (0.7 + 0.3 * p.life) * (0.85 + 0.15 * lifeFactor);
+        size = Math.max(0.05, Math.min(size, 2.8));
+
+        const alpha = Math.min(1.0, 0.5 + 0.5 * p.life);
+
+        // FIX: Use exactly 50% lightness for #ff6600
+        // Only slight variation for depth (45-55%)
+        let lig = 50;
+        if (p.type === 0) lig = 45;
+        else if (p.type === 1) lig = 50;
+        else lig = 55;
+
+        // Draw particle with pure orange #ff6600
+        ctx.beginPath();
+        ctx.arc(px, py, size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, ${p.sat}%, ${lig}%, ${alpha})`;
+        ctx.fill();
+
+        // Brighter core for larger particles - still orange, not white
+        if (p.type >= 1 && p.life > 0.5 && size > 0.5) {
+            const coreSize = size * (p.type === 2 ? 0.4 : 0.25);
+            ctx.beginPath();
+            ctx.arc(px, py, coreSize, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${p.hue}, 100%, 70%, ${alpha * 0.5})`;
+            ctx.fill();
+        }
+
+        // Tiny bright core for large particles
+        if (p.type === 2 && p.life > 0.6 && size > 1.0) {
+            const coreSize = size * 0.1;
+            ctx.beginPath();
+            ctx.arc(px, py, coreSize, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${p.hue}, 100%, 80%, ${alpha * 0.6})`;
+            ctx.fill();
+        }
+    }
+
+    ctx.globalCompositeOperation = 'source-over';
+
+    const fogGrad = ctx.createRadialGradient(
+        centerX, centerY, 50,
+        centerX, centerY, w * 0.8
+    );
+    fogGrad.addColorStop(0, 'rgba(30, 20, 10, 0.0)');
+    fogGrad.addColorStop(0.6, 'rgba(15, 5, 0, 0.0)');
+    fogGrad.addColorStop(1, 'rgba(8, 3, 0, 0.12)');
+    ctx.fillStyle = fogGrad;
+    ctx.fillRect(0, 0, w, h);
+}
+
+    // ----- Animation loop -----
+    function animate(time) {
+        updateParticles(time);
+        render();
+        requestAnimationFrame(animate);
+    }
+
+    // ----- Mouse / touch events -----
+    function handleMove(clientX, clientY) {
+        targetMouseX = Math.min(1, Math.max(0, clientX / w));
+        targetMouseY = Math.min(1, Math.max(0, clientY / h));
+    }
+
+    // ----- Init -----
+    function init() {
+        resize();
+        initParticles();
+
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', function(e) {
+            handleMove(e.clientX, e.clientY);
+        });
+        window.addEventListener('touchmove', function(e) {
+            if (e.touches.length > 0) {
+                const touch = e.touches[0];
+                handleMove(touch.clientX, touch.clientY);
+            }
+        }, { passive: true });
+        window.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 0) {
+                const touch = e.touches[0];
+                handleMove(touch.clientX, touch.clientY);
+            }
+        }, { passive: true });
+
+        requestAnimationFrame(animate);
+    }
+
+    init();
+
+})();

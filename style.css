@@ -11,7 +11,7 @@ html {
 
 body {
     margin: 0;
-    background-color: #212121 !important;
+    background-color: transparent !important;
     width: 100%;
     font-family: Klavika, sans-serif !important;
     overflow-x: hidden;
@@ -66,6 +66,44 @@ a {
     margin-bottom: 20px !important;
     background-color: transparent !important;
     color: #ffffff !important;
+}
+
+/* ===== GALAXY BACKGROUND ===== */
+#galaxy-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at 30% 40%, #0b1f12, #030805 90%);
+}
+
+#galaxy-canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+}
+
+/* Make all content appear above the background */
+.header,
+#home-page,
+#about-page,
+#skills-page,
+#work-page,
+#contact-page,
+.body1 {
+    position: relative;
+    z-index: 1;
+}
+
+.home-page-left,
+.about-text,
+.skill-box,
+.contact-container {
+    padding: 20px;
 }
 
 /* ===== HEADER ===== */
@@ -215,7 +253,7 @@ a {
 }
 /* ===== HOME PAGE ===== */
 #home-page {
-    background-color: #212121;
+    background-color: transparent !important;
     color: #ffffff;
     min-height: 100vh;
     width: 100%;
@@ -328,7 +366,7 @@ a {
 
 /* ===== ABOUT PAGE ===== */
 #about-page {
-    background-color: #212121;
+    background-color: transparent !important;
     color: #ffffff;
     min-height: 100vh;
     width: 100%;
@@ -395,7 +433,7 @@ a {
 
 /* ===== SKILLS PAGE ===== */
 #skills-page {
-    background-color: #212121;
+    background-color: transparent !important;
     color: #ffffff;
     min-height: 100vh;
     width: 100%;
@@ -511,7 +549,7 @@ a {
 
 /* ===== BLOG / WORK SECTION ===== */
 #work-page {
-    background-color: #212121;
+    background-color: transparent !important;
     color: #ffffff;
     min-height: 100vh;
     width: 100%;
@@ -799,7 +837,7 @@ a {
 
 /* ===== CONTACT PAGE ===== */
 #contact-page {
-    background-color: #212121;
+    background-color: transparent !important;
     color: #ffffff;
     min-height: 100vh;
     width: 100%;
