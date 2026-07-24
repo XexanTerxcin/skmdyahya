@@ -361,46 +361,27 @@ function loadBlogPosts(page = 1){
 }
 
 function renderPosts(posts){
-
     const container=document.getElementById("blogContainer");
-
     let html="";
-
     posts.forEach(post=>{
-
         html+=`
-
 <div class="blog-card">
-
-<img src="${post.image}"
-alt="${post.title}">
-
-<div class="blog-card-content">
-
-<span>${post.category}</span>
-
-<h3>${escapeHTML(post.title)}</h3>
-
-<p>${escapeHTML(post.description)}</p>
-
-<div>
-
-<span>${post.date}</span>
-
-<span>${post.readTime}</span>
-
+    <div class="blog-card-image">
+        <img src="${post.image}" alt="${post.title}">
+    </div>
+    <div class="blog-card-content">
+        <span class="blog-card-category">${post.category}</span>
+        <h3 class="blog-card-title">${escapeHTML(post.title)}</h3>
+        <p class="blog-card-description">${escapeHTML(post.description)}</p>
+        <div class="blog-card-meta">
+            <span class="date"><i class="bi bi-calendar3"></i> ${post.date}</span>
+            <span class="read-time"><i class="bi bi-clock"></i> ${post.readTime}</span>
+        </div>
+    </div>
 </div>
-
-</div>
-
-</div>
-
 `;
-
     });
-
     container.innerHTML=html;
-
 }
 
 function renderPagination(current,total){
