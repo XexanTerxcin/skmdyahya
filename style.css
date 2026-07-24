@@ -480,7 +480,7 @@ a {
     max-width: 1400px;
     padding: 0 30px;
     gap: 40px;
-    align-items: flex-start;
+    align-items: center; /* Changed from flex-start to center */
 }
 
 /* Left side - Skill Categories */
@@ -586,6 +586,7 @@ a {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    align-self: center; /* Add this to center vertically */
 }
 
 .skill-image {
@@ -640,7 +641,7 @@ a {
     border: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
-    cursor: default;
+    cursor: pointer;
 }
 
 .blog-card:hover {
